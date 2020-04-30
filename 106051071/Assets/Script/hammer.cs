@@ -21,7 +21,7 @@ public class hammer : Agent
         
         righammer = GetComponent<Rigidbody>();
         righeart = GameObject.Find("Heart").GetComponent<Rigidbody>();
-        righeart = GameObject.Find("Diamondo5side").GetComponent<Rigidbody>();
+        rigdia = GameObject.Find("Diamondo5side").GetComponent<Rigidbody>();
     }
 
     public override void OnEpisodeBegin()
@@ -30,9 +30,17 @@ public class hammer : Agent
         righammer.angularVelocity = Vector3.zero;
         righeart.velocity = Vector3.zero;
         righeart.angularVelocity = Vector3.zero;
+        rigdia.velocity = Vector3.zero;
+        rigdia.angularVelocity = Vector3.zero;
 
-        Vector3 poshammer = new Vector3(Random.Range(-6f, 6f), Random.Range(0.65f,3.67f), Random.Range(-6f, 0f));
+        Vector3 poshammer = new Vector3(Random.Range(-2f, 2f), Random.Range(0, 3f), Random.Range(-3f, 0f));
         transform.position = poshammer;
+
+        Vector3 posheart = new Vector3(Random.Range(-2f, 2f), 0.3f, Random.Range(-2f, 2f));
+        righeart.position = posheart;
+
+        Vector3 posdia = new Vector3(Random.Range(0f, 2f), 0.3f, Random.Range(-2, 0f));
+        rigdia.position = posdia ;
 
         Heart.complete = false;
         dia.complete = false;
@@ -60,7 +68,8 @@ public class hammer : Agent
     {
         Vector3 control = Vector3.zero;
         control.x = vectorAction[0];
-        control.z = vectorAction[1];
+        control.y = vectorAction[1];
+        control.z = vectorAction[2];
         righammer.AddForce(control * speed);
 
         if (Heart.complete)
@@ -68,11 +77,10 @@ public class hammer : Agent
             SetReward(1);
             EndEpisode();
         }
-        if (dia.complete)
+        if (dia.complete || transform.position.y> 3 || transform.position.x < -3 || transform.position.x > 5 || transform.position.z > 3 || transform.position.y < -4)
         {
             SetReward(-1);
             EndEpisode();
-
         }
 
 

@@ -13,14 +13,14 @@ public class Heart : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Heart")
+        if (other.name == "hammer")
         {
 
             
             complete = true;
         }
 
-      
+       
 
     }
 
